@@ -1,11 +1,21 @@
 <template>
-  <div class="bg-surface-stone rounded-3xl px-5 py-8 flex flex-col items-center gap-8">
-    <h3 class="text-2xl font-bold">Guy Powell</h3>
+  <div
+    class="bg-surface-stone rounded-3xl px-5 py-8 flex flex-col items-center gap-8"
+  >
+    <h3 class="text-2xl font-bold">{{ props.userName }}</h3>
     <img
       class="w-full rounded-full max-w-[128px]"
-      src="https://randomuser.me/api/portraits/men/16.jpg"
+      :src="props.photo"
       alt="user photo"
     />
-    <p class="text-l">guypowell@gmail.com</p>
+    <p class="text-l">{{ props.email }}</p>
   </div>
 </template>
+
+<script setup lang="ts">
+const props = defineProps({
+  userName: { type: String, required: true },
+  photo: { type: String, required: true },
+  email: { type: String, required: true },
+});
+</script>
