@@ -18,9 +18,8 @@ import { computed, onMounted } from "vue";
 import ObserverComp from "./components/ObserverComp.vue";
 import UserCard from "./components/UserCard.vue";
 import { useStore } from "vuex";
-import { key } from "../src/entities/user/model";
 
-const store = useStore(key);
+const store = useStore();
 
 onMounted(() => {
   store.dispatch("loadUsers", "20");

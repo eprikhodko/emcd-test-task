@@ -1,13 +1,10 @@
-import { InjectionKey } from "vue";
-import { createStore, Store } from "vuex";
+import { createStore } from "vuex";
 import { fetchUsers } from "../api";
 import { User } from "./types";
 
 export interface UserState {
   users: User[];
 }
-
-export const key: InjectionKey<Store<UserState>> = Symbol();
 
 const state: UserState = {
   users: [],
