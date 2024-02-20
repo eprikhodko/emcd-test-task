@@ -1,6 +1,8 @@
 <template>
-  <div class="max-w-[1280px] mx-auto mt-16">
-    <div class="grid grid-cols-4 gap-8">
+  <div class="max-w-[1440px] mx-auto mt-4 md:mt-12 px-4">
+    <div
+      class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6"
+    >
       <UserCard
         v-for="user in users"
         :key="user.login.uuid"

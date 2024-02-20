@@ -4,13 +4,6 @@
 @tailwind components;
 @tailwind utilities;
 
-:root,
-.root,
-#root,
-#docs-root {
-  --surface-stone: #eaeaec;
-}
-
 html {
   font-family: "Montserrat", sans-serif;
   font-size: 16px;
