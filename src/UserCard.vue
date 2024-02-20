@@ -13,9 +13,11 @@
 </template>
 
 <script setup lang="ts">
-const props = defineProps({
-  userName: { type: String, required: true },
-  photo: { type: String, required: true },
-  email: { type: String, required: true },
-});
+interface Props {
+  userName: string;
+  photo: string;
+  email: string;
+}
+
+const props = defineProps<Props>();
 </script>

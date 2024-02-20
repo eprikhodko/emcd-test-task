@@ -1,41 +1,45 @@
 <template>
   <div class="max-w-[1280px] mx-auto mt-16">
     <div class="grid grid-cols-4 gap-8">
-      <div v-if="isLoading">Loading...</div>
       <UserCard
-        v-else
         v-for="user in users"
-        :key="user.id.value"
+        :key="user.login.uuid"
         :userName="user.name.first"
         :photo="user.picture.large"
         :email="user.email"
       />
+      <ObserverComp @intersect="handleIntersect" />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
+import { ref } from "vue";
 import axios from "axios";
+import ObserverComp from "./ObserverComp.vue";
 import UserCard from "./UserCard.vue";
 
-const users = ref([]);
-const isLoading = ref(false);
-const error = ref(null);
-
-async function fetchUsers() {
-  isLoading.value = true;
-  error.value = null;
-  try {
-    const response = await axios.get("https://randomuser.me/api/?results=20");
-    users.value = response.data.results;
-    console.log(users.value);
-  } catch (err) {
-    error.value = err;
-  } finally {
-    isLoading.value = false;
-  }
+interface User {
+  login: {
+    uuid: string;
+  };
+  name: {
+    first: string;
+  };
+  picture: {
+    large: string;
+  };
+  email: string;
 }
 
-onMounted(fetchUsers);
+const users = ref<User[]>([]);
+
+const handleIntersect = async () => {
+  try {
+    const response = await axios.get("https://randomuser.me/api/?results=20");
+    users.value = [...users.value, ...response.data.results];
+  } catch (err) {
+    console.error(err);
+  }
+}
 </script>
