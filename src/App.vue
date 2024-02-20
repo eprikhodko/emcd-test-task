@@ -14,32 +14,19 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
-import axios from "axios";
-import ObserverComp from "./ObserverComp.vue";
-import UserCard from "./UserCard.vue";
+import { computed } from "vue";
+import ObserverComp from "./components/ObserverComp.vue";
+import UserCard from "./components/UserCard.vue";
 
-interface User {
-  login: {
-    uuid: string;
-  };
-  name: {
-    first: string;
-  };
-  picture: {
-    large: string;
-  };
-  email: string;
-}
+import { useStore } from "vuex";
+import { key } from "../src/entities/user/model";
 
-const users = ref<User[]>([]);
+const store = useStore(key);
 
-const handleIntersect = async () => {
-  try {
-    const response = await axios.get("https://randomuser.me/api/?results=20");
-    users.value = [...users.value, ...response.data.results];
-  } catch (err) {
-    console.error(err);
-  }
-}
+const handleIntersect = () => {
+  store.dispatch("loadUsers", "20");
+  console.log(store.state.users.results);
+};
+
+const users = computed(() => store.state.users.results);
 </script>
