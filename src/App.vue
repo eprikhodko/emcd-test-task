@@ -4,7 +4,7 @@
       <UserCard
         v-for="user in users"
         :key="user.login.uuid"
-        :userName="user.name.first"
+        :user-name="user.name.first"
         :photo="user.picture.large"
         :email="user.email"
       />
@@ -14,19 +14,21 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, onMounted } from "vue";
 import ObserverComp from "./components/ObserverComp.vue";
 import UserCard from "./components/UserCard.vue";
-
 import { useStore } from "vuex";
 import { key } from "../src/entities/user/model";
 
 const store = useStore(key);
 
-const handleIntersect = () => {
+onMounted(() => {
   store.dispatch("loadUsers", "20");
-  console.log(store.state.users.results);
+});
+
+const handleIntersect = async () => {
+  store.dispatch("loadUsers", "20");
 };
 
-const users = computed(() => store.state.users.results);
+const users = computed(() => store.state.users);
 </script>

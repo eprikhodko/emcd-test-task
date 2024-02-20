@@ -18,7 +18,7 @@ export const store = createStore<UserState>({
 
   mutations: {
     setUsers(state: UserState, users: User[]) {
-      state.users = users;
+      state.users = [...state.users, ...users];
     },
   },
 
@@ -26,14 +26,10 @@ export const store = createStore<UserState>({
     async loadUsers({ commit }, query: string) {
       try {
         const users = await fetchUsers(query);
-        commit("setUsers", users);
+        commit("setUsers", users.results);
       } catch (error) {
         console.error("Failed to load users:", error);
       }
     },
-  },
-  
-  getters: {
-    allUsers: (state: UserState) => state.users,
   },
 });
