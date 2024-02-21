@@ -18,4 +18,18 @@ export default defineConfig({
       "@": fileURLToPath(new URL(root, import.meta.url)),
     },
   },
+
+  build: {
+    assetsDir: "assets",
+    rollupOptions: {
+      output: {
+        assetFileNames: (assetInfo) => {
+          if (assetInfo.name && assetInfo.name.endsWith(".woff")) {
+            return "fonts/[name][extname]";
+          }
+          return "assets/[name]-[hash][extname]";
+        },
+      },
+    },
+  },
 });
