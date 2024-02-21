@@ -15,12 +15,15 @@ export const store = createStore<UserState>({
 
   mutations: {
     setUsers(state: UserState, users: User[]) {
-      state.users = [...state.users, ...users];
+      users.forEach((user) => state.users.push(user));
     },
   },
 
   actions: {
-    async loadUsers({ commit }: ActionContext<UserState, UserState>, query: string) {
+    async loadUsers(
+      { commit }: ActionContext<UserState, UserState>,
+      query: string
+    ) {
       try {
         const users = await fetchUsers(query);
         commit("setUsers", users.results);
