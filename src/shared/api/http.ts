@@ -1,5 +1,6 @@
 import axios from "axios";
+import { API_URL } from "@/shared/config";
 
 export const http = axios.create({
-  baseURL: "https://randomuser.me/api",
+  baseURL: API_URL,
 });
