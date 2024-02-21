@@ -1,4 +1,4 @@
-import { createStore } from "vuex";
+import { createStore, ActionContext } from "vuex";
 import { fetchUsers } from "../api";
 import { User } from "./types";
 
@@ -20,7 +20,7 @@ export const store = createStore<UserState>({
   },
 
   actions: {
-    async loadUsers({ commit }, query: string) {
+    async loadUsers({ commit }: ActionContext<UserState, UserState>, query: string) {
       try {
         const users = await fetchUsers(query);
         commit("setUsers", users.results);
