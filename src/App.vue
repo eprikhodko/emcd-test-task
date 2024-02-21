@@ -1,10 +1,12 @@
 <template>
-  <div class="max-w-[1280px] mx-auto mt-16">
-    <div class="grid grid-cols-4 gap-8">
+  <div class="max-w-[1440px] mx-auto mt-4 md:mt-12 px-4">
+    <div
+      class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6"
+    >
       <UserCard
         v-for="user in users"
         :key="user.login.uuid"
-        :userName="user.name.first"
+        :user-name="user.name.first"
         :photo="user.picture.large"
         :email="user.email"
       />
@@ -14,32 +16,20 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
-import axios from "axios";
-import ObserverComp from "./ObserverComp.vue";
-import UserCard from "./UserCard.vue";
+import { computed, onMounted } from "vue";
+import ObserverComp from "./components/ObserverComp.vue";
+import UserCard from "./components/UserCard.vue";
+import { useStore } from "vuex";
 
-interface User {
-  login: {
-    uuid: string;
-  };
-  name: {
-    first: string;
-  };
-  picture: {
-    large: string;
-  };
-  email: string;
-}
+const store = useStore();
 
-const users = ref<User[]>([]);
+onMounted(() => {
+  store.dispatch("loadUsers", "20");
+});
 
-const handleIntersect = async () => {
-  try {
-    const response = await axios.get("https://randomuser.me/api/?results=20");
-    users.value = [...users.value, ...response.data.results];
-  } catch (err) {
-    console.error(err);
-  }
-}
+const handleIntersect = () => {
+  store.dispatch("loadUsers", "20");
+};
+
+const users = computed(() => store.state.users);
 </script>
