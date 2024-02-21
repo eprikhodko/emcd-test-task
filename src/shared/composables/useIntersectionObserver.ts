@@ -6,6 +6,15 @@ interface ObserverOptions {
   threshold: number;
 }
 
+/**
+ * Vue composable function to create and manage an IntersectionObserver.
+ * Calls the provided callback function when the observed element intersects with the viewport.
+ *
+ * @param callback - Function to be called when the observed element intersects with the viewport.
+ * @param options - Configuration options for the IntersectionObserver.
+ * @returns An object containing a `ref` to the element to be observed.
+ */
+
 export function useIntersectionObserver(
   callback: () => void,
   options: ObserverOptions
