@@ -1,7 +1,7 @@
 {
   "name": "emcd-test-task",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "main.ts",
   "repository": "https://github.com/eprikhodko/emcd-test-task",
   "author": "eprikhodko <eprikhodkodev@gmail.com>",
   "license": "MIT",
@@ -10,12 +10,15 @@
     "dev": "vite",
     "build": "vue-tsc && vite build",
     "preview": "vite preview",
-    "lint": "eslint --ext .js,.vue src"
+    "lint": "eslint --ext .vue,.ts, src && vue-tsc --noEmit"
   },
   "dependencies": {
-    "vue": "3.4.15"
+    "axios": "1.6.7",
+    "vue": "3.4.15",
+    "vuex": "4.0.2"
   },
   "devDependencies": {
+    "@types/node": "20.11.19",
     "@typescript-eslint/eslint-plugin": "6.19.0",
     "@typescript-eslint/parser": "6.19.0",
     "@vitejs/plugin-vue": "5.0.3",
