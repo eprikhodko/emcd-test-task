@@ -3,34 +3,17 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref } from "vue";
+import { useIntersectionObserver } from "@/shared/composables/useIntersectionObserver";
+
+const observerOptions = {
+  root: null,
+  rootMargin: "400px",
+  threshold: 1.0,
+};
 
 const emit = defineEmits(["intersect"]);
-
-const observerElement = ref(null);
-let observer: IntersectionObserver | null = null;
-
-onMounted(() => {
-  const options = {
-    root: null,
-    rootMargin: "400px",
-    threshold: 1.0,
-  };
-
-  observer = new IntersectionObserver(([entry]) => {
-    if (entry && entry.isIntersecting) {
-      emit("intersect");
-    }
-  }, options);
-
-  if (observerElement.value) {
-    observer.observe(observerElement.value);
-  }
-});
-
-onUnmounted(() => {
-  if (observer) {
-    observer.disconnect();
-  }
-});
+const { observerElement } = useIntersectionObserver(
+  () => emit("intersect"),
+  observerOptions
+);
 </script>

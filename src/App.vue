@@ -27,7 +27,7 @@ onMounted(() => {
   store.dispatch("loadUsers", "20");
 });
 
-const handleIntersect = async () => {
+const handleIntersect = () => {
   store.dispatch("loadUsers", "20");
 };
 
